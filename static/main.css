@@ -1,1 +1,421 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background-image: url('https://rigsljqkzlnemypqjlbk.supabase.co/storage/v1/object/public/recycle//background.png');
+background-size: cover;
+}
+
+@media (max-width: 768px) {
+    .recycled-text-menu {
+        font-size: 12px;
+        margin: 5px 2px;
+        display: inline-block;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+.inspiration-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.inspiration-item {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inspiration-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.preview-frame {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  transform: scale(0.75);
+  transform-origin: 0 0;
+  width: 133.33%;
+  height: 133.33%;
+}
+
+.inspiration-info {
+  padding: 20px;
+}
+
+.inspiration-info h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.2em;
+}
+
+.inspiration-info p {
+  color: #666;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin: 0 0 15px 0;
+}
+
+.visit-link {
+  display: inline-block;
+  background-color: #FFA74F;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.visit-link:hover {
+  background-color: #e8954a;
+}
+
+#stories {
+  background-color: #FFD7B3;
+  padding: 40px 20px;
+}
+
+#stories h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.recycled-text {
+    font-family: "Darumadrop One", sans-serif;
+    font-size: 5rem;
+    color: #2e7031;
+    text-transform: uppercase;
+    transform: rotate(-0.8deg);
+    line-height: 0.85;
+    letter-spacing: 0.08em;
+    text-align: center;
+    /* Thin border with slight shadow */
+    -webkit-text-stroke: 4px #000000;
+    text-stroke: 1.5px #000000;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+    
+    filter: contrast(1.3) saturate(0.8);
+}
+
+.menu-container {
+    position: relative;
+    padding: 20px;
+}
+
+.menu-container::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    right: -10px;
+    bottom: -5px;
+    background: #FFA74F;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    z-index: -1;
+    transform: rotate(-2deg);
+}
+
+.menu-container::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -8px;
+    right: -8px;
+    bottom: -3px;
+    background: rgba(255, 167, 79, 0.7);
+    border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+    z-index: -2;
+    transform: rotate(1deg);
+}
+
+
+.recycled-text-menu {
+    font-family: "Darumadrop One", sans-serif;
+    font-size: 2rem;
+    color: #2e7031;
+    transform: rotate(-0.8deg);
+    line-height: 0.85;
+    letter-spacing: 0.08em;
+    text-align: center;
+    /* Thin border with slight shadow */
+    -webkit-text-stroke: 2px #000000;
+    text-stroke: 1.5px #000000;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+    cursor: pointer;
+    filter: contrast(1.3) saturate(0.8);
+}
+
+.articles-container, .recepty-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+img {
+  height: 300px;
+}
+.add-article-form, .add-website, .add-recept-form {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f8f0;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.add-article-form input, .add-website input[type="text"],
+.add-article-form textarea,
+.add-article-form input[type="file"], .add-recept-form input, .add-recept-form textarea, .add-recept-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.add-article-form button, .add-recept-form button, .add-website button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+nav button.active {
+  background-color: #32CD32; /* Bright green for active */
+  color: #023020; /* Dark green text */
+  transform: scale(1.05); /* Slightly larger */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.back-button-fixed {
+  position: fixed;
+  top: 220px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #2e7031;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  font-weight: bold;
+}
+
+.back-button-fixed:hover {
+  background-color: #45a049;
+}
+
+/* Make articles responsive */
+@media (max-width: 1024px) {
+  .articles-container, .recepty-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .articles-container, .recepty-container {
+    grid-template-columns: 1fr;
+  }
+  h1 {
+    font-size: 0.95em;
+  }
+}
+
+.article, .recept {
+    background-color: #FFFCF5; /* A slightly off-white for a vintage feel */
+    padding: 15px 15px 70px 15px; /* Top, Sides, BOTTOM (larger for text) */
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: rotate(-3deg); /* Give it a slight tilt */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* We keep flex to help manage content */
+    flex-direction: column;
+}
+
+/* Add a cool hover effect */
+.article:hover, .recept:hover {
+    transform: scale(1.05) rotate(2deg); /* Straighten out and grow on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10; /* Bring the hovered polaroid to the front */
+}
+
+/* Style the image part of the polaroid */
+.article img, .recept img {
+    width: 100%;
+    height: 250px; /* Give images a consistent height */
+    object-fit: cover; /* Prevents images from stretching */
+    display: block;
+    border: 1px solid #EAEAEA;
+}
+
+/* Style the title like a handwritten caption */
+.article h3, .recept h3 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    color: #222;
+    margin: 15px 0 0 0; /* Margin-top, no margin on bottom */
+    line-height: 1.2;
+}
+
+/* Hide the paragraph text or style it smaller if you want */
+.article p, .recept p {
+    display: none; /* A lot of text doesn't fit the polaroid style, so we hide it */
+}
+
+.article button, .recept button {
+    position: absolute; /* Hide the button or reposition it if needed */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0; /* Hide the button initially */
+    transition: opacity 0.3s ease;
+}
+
+.article:hover button, .recept:hover button {
+    opacity: 1; /* Show the button on hover */
+}
+
+#article-detail-content, #recept-detail-content {
+  background-color: #FFD7B3;
+  padding: 15px;
+  color: black;
+  border-radius: 8px;
+}
+
+h1, h4 {
+  text-align: center;
+  padding: 18px;
+  color: lightgreen;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional shadow for depth */
+}
+
+nav button, .article button, .recept button, a {
+  background-color: #2e7031; /* Darker green background */
+  color: white/*#90ee90*/; /* Light green text for readability */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+nav button:hover, .article button:hover, .recept button:hover, a:hover {
+  background-color: #32CD32; /* Bright green on hover */
+  color: #023020; /* Dark green text on hover */
+}
+
+.page-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+}
+.left-content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.sidebar {
+  flex: 1;
+  box-sizing: border-box;
+  border-left: 2px solid #c8e6c9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+/* Hide content sections by default */
+main section {
+  display: none;
+  margin-bottom: 30px;
+}
+/* Show when triggered */
+main section.visible {
+  display: block;
+}
+/* Tables in To-Do and Comments */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+    max-width: 600px;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+th {
+  background-color: #a5d6a7;
+  text-align: left;
+}
+.input-section input {
+  max-width: 600px;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+footer {
+  font-family: "Darumadrop One", sans-serif;
+    font-size: 1.5rem;
+    color: #2e7031;
+    transform: rotate(-0.8deg);
+    line-height: 0.85;
+    letter-spacing: 0.08em;
+    text-align: center;
+    -webkit-text-stroke: 1.5px #000000;
+    text-stroke: 1.5px #000000;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+    filter: contrast(1.3) saturate(0.8);
+}
+
+#submitTodo, #submitComment {
+    display: none;
+}
+
+@media (max-width: 768px) {
+#submitTodo, #submitComment {
+    display: block;
+}
+}
+
