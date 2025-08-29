@@ -145,8 +145,7 @@ background-size: cover;
     transform: rotate(1deg);
 }
 
-
-.recycled-text-menu {
+.recycled-text-menu, nav a {
     font-family: "Darumadrop One", sans-serif;
     font-size: 2rem;
     color: #2e7031;
@@ -321,7 +320,7 @@ nav {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional shadow for depth */
 }
 
-nav button, .article button, .recept button, a {
+nav button, .article button, .recept button {
   background-color: #2e7031; /* Darker green background */
   color: white/*#90ee90*/; /* Light green text for readability */
   border: none;
@@ -331,7 +330,7 @@ nav button, .article button, .recept button, a {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-nav button:hover, .article button:hover, .recept button:hover, a:hover {
+nav button:hover, .article button:hover, .recept button:hover {
   background-color: #32CD32; /* Bright green on hover */
   color: #023020; /* Dark green text on hover */
 }
