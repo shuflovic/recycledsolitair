@@ -251,6 +251,42 @@ nav button.active {
     flex-direction: column;
 }
 
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical centering */
+    align-items: center;     /* horizontal centering */
+    background-color: #FFFCF5; /* A slightly off-white for a vintage feel */
+    padding: 15px 15px 70px 15px; /* Top, Sides, BOTTOM (larger for text) */
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+/* full-screen flex wrapper */
+.login-wrapper {
+    display: flex;
+    justify-content: center;  /* center horizontally */
+    align-items: center;      /* center vertically */
+    min-height: 80vh;        /* full viewport height */
+  background-image: url('https://rigsljqkzlnemypqjlbk.supabase.co/storage/v1/object/public/recycle//background.png');
+  background-size: cover;
+}
+
+/* actual login card */
+.login-card {
+    background-color: #FFFCF5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px; /* keep nice size on desktop */
+}
+
+
 /* Add a cool hover effect */
 .article:hover, .recept:hover {
     transform: scale(1.05) rotate(2deg); /* Straighten out and grow on hover */
