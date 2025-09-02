@@ -1,23 +1,29 @@
-console.log('Recepty script loaded');
-
-document.addEventListener('DOMContentLoaded', function() {
-
 let recepty = [];
 
-// Load recipes from Supabase
+// Triggered by supabase.js after client initialization
+window.onSupabaseInitialized = function() {
+    loadArticlesFromDB(); // Existing callback
+    loadReceptyFromDB();  // Add recipe loading
+};
+
 async function loadReceptyFromDB() {
+    if (!window.supabaseClient) {
+        console.error('Supabase client not initialized');
+        loadDummyRecepty();
+        return;
+    }
     try {
+        console.log('Fetching recipes from Supabase...');
         const { data, error } = await supabaseClient
-            .from('recepty') // Using 'recepty' table in Supabase
+            .from('recepty')
             .select('*')
             .order('created_at', { ascending: false });
-
         if (error) {
-            console.error('Error loading recepty:', error);
-            loadDummyRecepty(); // Fallback to dummy data
+            console.error('Error loading recepty:', error.message, error.details);
+            loadDummyRecepty();
             return;
         }
-
+        console.log('Fetched recipes:', data);
         recepty = data.map(recept => ({
             id: recept.id,
             title: recept.title,
@@ -25,7 +31,6 @@ async function loadReceptyFromDB() {
             fullContent: recept.full_content || `<h2>${recept.title}</h2><p>${recept.content}</p>`,
             imageUrl: recept.image_url || ''
         }));
-
         displayRecepty();
     } catch (err) {
         console.error('Database connection error:', err);
@@ -33,7 +38,6 @@ async function loadReceptyFromDB() {
     }
 }
 
-// Fallback dummy data for recipes
 function loadDummyRecepty() {
     recepty = [
         {
@@ -84,32 +88,29 @@ function loadDummyRecepty() {
     displayRecepty();
 }
 
-// Function to display recipes
 function displayRecepty() {
     const container = document.getElementById('recepty-container');
-    if (!container) return; // Exit if container doesn't exist on the page
+    if (!container) return;
     container.innerHTML = '';
-
     recepty.forEach(recept => {
         const receptDiv = document.createElement('div');
-        receptDiv.className = 'recept'; // Use 'recept' for styling
-
+        receptDiv.className = 'recept';
         receptDiv.innerHTML = `
             <h3>${recept.title}</h3>
+            <p>ID: ${recept.id}</p>
             <p>${recept.content}</p>
             ${recept.imageUrl ? `<img src="${recept.imageUrl}" alt="Recipe Image" style="max-width:100%; border-radius: 10px; margin-top: 10px;">` : ''}
             <button onclick="showReceptDetail(${recept.id})">View Recipe</button>
         `;
-
         container.appendChild(receptDiv);
     });
 }
 
-// Function to show recipe detail
 function showReceptDetail(receptId) {
     const recept = recepty.find(r => r.id === receptId);
     if (recept) {
         const html = `
+            <p>Recipe ID: ${recept.id}</p>
             ${recept.imageUrl ? `<img src="${recept.imageUrl}" alt="Recipe Image" style="max-width:100%; border-radius: 10px; margin-bottom: 20px;">` : ''}
             ${recept.fullContent}
         `;
@@ -118,46 +119,35 @@ function showReceptDetail(receptId) {
     }
 }
 
-// Function to add a new recipe
 async function addNewRecept() {
-    const title = document.getElementById('new-recept-title').value.trim();
-    const content = document.getElementById('new-recept-content').value.trim();
-    const fullContent = document.getElementById('new-recept-full').value.trim();
-    const imageFile = document.getElementById('recept-image').files[0];
-
+    const title = document.getElementById('new-recept-title')?.value.trim();
+    const content = document.getElementById('new-recept-content')?.value.trim();
+    const fullContent = document.getElementById('new-recept-full')?.value.trim();
+    const imageFile = document.getElementById('recept-image')?.files[0];
     if (!title || !content) {
         alert('Please fill in at least the title and preview content.');
         return;
     }
-
     let imageUrl = '';
-
-    // Upload image if selected (uses the same 'recycle' bucket)
     if (imageFile) {
         const fileExt = imageFile.name.split('.').pop();
         const fileName = `recept-${Date.now()}.${fileExt}`;
         const filePath = `${fileName}`;
-
         const { error: uploadError } = await supabaseClient
             .storage
             .from('recycle')
             .upload(filePath, imageFile);
-
         if (uploadError) {
             console.error('Image upload failed:', uploadError.message);
             alert('Image upload failed. Please try again.');
             return;
         }
-
         const { data: publicUrlData } = supabaseClient
             .storage
             .from('recycle')
             .getPublicUrl(filePath);
-
         imageUrl = publicUrlData.publicUrl;
     }
-
-    // Insert recipe into the 'recepty' table in Supabase
     const { data, error } = await supabaseClient
         .from('recepty')
         .insert([{
@@ -168,13 +158,11 @@ async function addNewRecept() {
         }])
         .select()
         .single();
-
     if (error || !data) {
         console.error('Supabase insert error:', error?.message);
         alert('Error saving recipe. Check console for details.');
         return;
     }
-
     const newRecept = {
         id: data.id,
         title: data.title,
@@ -182,21 +170,11 @@ async function addNewRecept() {
         fullContent: data.full_content,
         imageUrl: data.image_url
     };
-
     recepty.unshift(newRecept);
     displayRecepty();
-
-    // Clear form
     document.getElementById('new-recept-title').value = '';
     document.getElementById('new-recept-content').value = '';
     document.getElementById('new-recept-full').value = '';
     document.getElementById('recept-image').value = '';
-
     alert('Recipe saved successfully!');
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadReceptyFromDB();
-});
-
-    });

@@ -179,30 +179,21 @@
           
         </section>
         
-           
-        
         </section>
         
       </main>
     </div>
     
   </div>
-
-  <nav>
-  <button><a href="development.html" style="text-decoration: none;">page development</a></button>
-  </nav>
   
   <footer>
     &copy; 2025 recycledsolitair.com
   </footer>
 
+    <script>
+      window.SUPABASE_API_KEY = "{{ supabase_key }}";
+    </script>
   <script src="/static/supabase.js"></script>
-  <script>
-    // Initialize Supabase client once the key is available
-    if (window.SUPABASE_API_KEY) {
-      initializeSupabase(window.SUPABASE_API_KEY);
-    }
-  </script>
   <script src="/static/script.js"></script>
   <script src="/static/articles.js"></script>
   <script src="/static/website.js"></script>
@@ -247,7 +238,6 @@ const activeButton = Array.from(navButtons).find(button =>
   }
 }
 </script>
-
-  
+ 
 </body>
 </html>
