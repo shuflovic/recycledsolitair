@@ -83,15 +83,10 @@
     &copy; 2025 recycledsolitair.com
   </footer>
 
-  <script src="/static/supabase.js"></script>
   <script>
-    // Pass Supabase API key from Flask backend to frontend
-    window.SUPABASE_API_KEY = '{{ supabase_key }}';
-    // Initialize Supabase client once the key is available
-    if (window.SUPABASE_API_KEY) {
-      initializeSupabase(window.SUPABASE_API_KEY);
-    }
+    window.SUPABASE_API_KEY = "{{ supabase_key }}";
   </script>
+  <script src="/static/supabase.js"></script>
   <script src="/static/to-do.js"></script>
   <script src="/static/comment.js"></script>
   <script src="/static/script.js"></script>
