@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chicle&family=Darumadrop+One&display=swap" rel="stylesheet">
+<script>
+  // Pass Supabase API key from Flask backend to frontend
+  window.SUPABASE_API_KEY = '{{ supabase_key }}';
+</script>
 </head>
 
   <body>
@@ -196,6 +200,12 @@
   </footer>
 
   <script src="/static/supabase.js"></script>
+  <script>
+    // Initialize Supabase client once the key is available
+    if (window.SUPABASE_API_KEY) {
+      initializeSupabase(window.SUPABASE_API_KEY);
+    }
+  </script>
   <script src="/static/script.js"></script>
   <script src="/static/website.js"></script>
   <script src="/static/recepty.js"></script>
