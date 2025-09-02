@@ -23,7 +23,7 @@ def about():
 @app.route("/development")
 @login_required
 def development():
-    supabase_key = os.getenv('supabase_key', '')
+    supabase_key = os.getenv('SUPABASE_API_KEY', '')
     return render_template('development.html', title='development', supabase_key=supabase_key)
 
 @app.route("/projects")
