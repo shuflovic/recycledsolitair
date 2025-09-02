@@ -2,12 +2,12 @@
 // supabase-config.js
 const SUPABASE_URL = 'https://rigsljqkzlnemypqjlbk.supabase.co';
 // The API key will be passed from the Flask backend
-let SUPABASE_KEY = '';
+let SUPABASE_API_KEY = '';
 
 // Function to initialize Supabase client with key from backend
 function initializeSupabase(apiKey) {
-    SUPABASE_KEY = apiKey;
-    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    SUPABASE_API_KEY = apiKey;
+    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_API_KEY);
 }
 
 // Fallback initialization if key is already available
