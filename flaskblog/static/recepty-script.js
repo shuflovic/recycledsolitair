@@ -1,3 +1,7 @@
+console.log('Recepty script loaded');
+
+document.addEventListener('DOMContentLoaded', function() {
+
 let recepty = [];
 
 // Load recipes from Supabase
@@ -194,3 +198,5 @@ async function addNewRecept() {
 document.addEventListener('DOMContentLoaded', () => {
     loadReceptyFromDB();
 });
+
+    });

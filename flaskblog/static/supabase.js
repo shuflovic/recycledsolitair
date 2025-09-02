@@ -1,17 +1,26 @@
-
-// supabase-config.js
 const SUPABASE_URL = 'https://rigsljqkzlnemypqjlbk.supabase.co';
-// The API key will be passed from the Flask backend
-let SUPABASE_KEY = '';
+const SUPABASE_KEY = '{{ supabase_key }}'; // <-- The key is now directly here
 
-// Function to initialize Supabase client with key from backend
-function initializeSupabase(apiKey) {
-    SUPABASE_KEY = apiKey;
-    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    console.log('Supabase client initialized successfully');
+let supabaseClient = null;
+
+function initializeSupabase() {
+    if (!supabaseClient) {
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            window.supabaseClient = supabaseClient;
+            console.log('Supabase client initialized successfully');
+
+            // Notify script.js that the client is ready
+            if (typeof window.onSupabaseInitialized === 'function') {
+                window.onSupabaseInitialized();
+            }
+        } catch (error) {
+            console.error('Failed to initialize Supabase client:', error);
+        }
+    } else {
+        console.log('Supabase client already initialized. Skipping.');
+    }
 }
 
-// Fallback initialization if key is already available
-if (typeof window !== 'undefined' && window.SUPABASE_API_KEY) {
-    initializeSupabase(window.SUPABASE_API_KEY);
-}
+// Automatically initialize when the script loads
+initializeSupabase();

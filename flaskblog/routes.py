@@ -14,8 +14,17 @@ from flask_mail import Message
 @app.route("/home")
 def home():
     page = request.args.get('page', 1, type=int)
+    # Assuming 'Post' model and pagination are set up correctly
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    supabase_key = os.getenv('supabase_key', '')
+
+    # Correctly retrieve the environment variable from Replit secrets
+    # The name is case-sensitive and should match the name in your Replit secrets
+    supabase_key = os.environ.get('SUPABASE_API_KEY')
+
+    # You can also use os.getenv() but make sure the case is correct
+    # supabase_key = os.getenv('SUPABASE_API_KEY')
+
+    # Now, pass the correct key to your template
     return render_template('home.html', posts=posts, supabase_key=supabase_key)
 
 
