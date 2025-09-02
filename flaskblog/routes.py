@@ -15,7 +15,7 @@ from flask_mail import Message
 def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    supabase_key = os.getenv('SUPABASE_KEY', '')
+    supabase_key = os.getenv('supabase_key', '')
     return render_template('home.html', posts=posts, supabase_key=supabase_key)
 
 
@@ -26,7 +26,7 @@ def about():
 @app.route("/development")
 @login_required
 def development():
-    supabase_key = os.getenv('SUPABASE_KEY', '')
+    supabase_key = os.getenv('supabase_key', '')
     return render_template('development.html', title='development', supabase_key=supabase_key)
 
 @app.route("/projects")
