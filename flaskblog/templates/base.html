@@ -1,86 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk-en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chicle&family=Darumadrop+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://axcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-
-    {% if title %}
-        <title>Recycled Solitair - {{ title }}</title>
-    {% else %}
-        <title>Recycled Solitair</title>
-    {% endif %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>From Trash to Treasure</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chicle&family=Darumadrop+One&display=swap" rel="stylesheet">
 </head>
-<body>
+
+  <body>
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              
-              
-            </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
-                <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
-                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </nav>
-</header>
+          <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
 
-<main role="main" class="container">
-
-  <div class="recycled-text">
-      <br>RECYCLED<br>SOLITAIR<br><br>
-  </div>
-  
-  <nav class="menu-container">
-        <p class="recycled-text-menu" data-section="articles"><a href="/"> articles </a></p>
-        <p class="recycled-text-menu" data-section="about"><a href="/about"> about me </a></p>
-        <p class="recycled-text-menu" data-section="projects"><a href="/projects"> projects </a></p>
-        <p class="recycled-text-menu" data-section="gallery" onclick="showSection('gallery')">gallery </p>
-        <p class="recycled-text-menu" data-section="stories" onclick="showSection('stories')">inspiration </p>
-        <p class="recycled-text-menu" data-section="diy" onclick="showSection('diy')">diy zone </p>
-        <p class="recycled-text-menu" data-section="contact" onclick="showSection('contact')">contact </p>
-        <p class="recycled-text-menu" data-section="tips" onclick="showSection('tips')">recycling tips</p>
-        <p class="recycled-text-menu" data-section="recepty" onclick="showSection('recepty')">recepty</p>
-  </nav>
-          
-  <div class="row">
-        <div class="col-md-8">
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ 'danger' if category == 'error' else category }}" role="alert">
-                  {{ message }}
+              <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>-->
+              <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto">
                 </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-          {% block content %}{% endblock %}
-        </div>
-  </div>
-</main>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                  {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{{ url_for('development') }}">New Post</a>
+                    <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  {% else %}
+                    <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </nav>
+    </header>
+    
+ <div class="page-layout">
+    <div class="left-content">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<div class="recycled-text">
+    <br>RECYCLED<br>SOLITAIR<br><br>
+</div>
+      
+
+      
+  <nav class="menu-container">
+<p class="recycled-text-menu" data-section="articles" onclick="showSection('articles')"> articles </p>
+<p class="recycled-text-menu" data-section="about" onclick="showSection('about')">about me </p>
+<p class="recycled-text-menu" data-section="projects" onclick="showSection('projects')">projects </p>
+<p class="recycled-text-menu" data-section="gallery" onclick="showSection('gallery')">gallery </p>
+<p class="recycled-text-menu" data-section="stories" onclick="showSection('stories')">inspiration </p>
+<p class="recycled-text-menu" data-section="diy" onclick="showSection('diy')">diy zone </p>
+<p class="recycled-text-menu" data-section="contact" onclick="showSection('contact')">contact </p>
+<p class="recycled-text-menu" data-section="tips" onclick="showSection('tips')">recycling tips</p>
+<p class="recycled-text-menu" data-section="recepty" onclick="showSection('recepty')">recepty</p>
+ </nav>
+      
+<main class="main-content">
+        
+  <section id="about" style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">
+          <h2>About Me</h2>
+          <p>volam sa jozef a vselico dokazem,.. inak som Passionate about rescuing forgotten treasures and turning them into something new and useful.</p>
+  </section>
+
+<section id="articles" class="visible">
+          <h2>Latest Articles</h2>
+          <div id="articles-container" class="articles-container"></div>
+</section>
+
+
+<section id="article-detail">
+  <button onclick="showSection('articles')" class="back-button-fixed">Back to articles</button>
+  <div id="article-detail-content"></div>
+</section>
+
+<section id="recepty">
+          <h2 style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">Začal som jesť inak, musel som a chutí mi to,.. tunak pár mojich kúskov z poslednej doby,..</h2>
+          <div id="recepty-container" class="recepty-container"></div>
+</section>
+
+
+<section id="recept-detail">
+  <button onclick="showSection('recepty')" class="back-button-fixed">Back to recepty</button>
+  <div id="recept-detail-content"></div>
+</section>
+        
+        
+        <section id="projects" style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">
+          <h2>My Projects</h2>
+          <p>From broken chairs to quirky shelves—this is where the magic happens.</p>
+        </section>
+        
+        <section id="gallery">
+          <h2>Gallery</h2>
+          <p>for now just few GPT generated pictures</p>
+          <img src="https://rigsljqkzlnemypqjlbk.supabase.co/storage/v1/object/public/recycle//gallery2.png">
+          <img src="https://rigsljqkzlnemypqjlbk.supabase.co/storage/v1/object/public/recycle//gallery3.png">
+        </section>
+        
+        <section id="contact" style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">
+          <h2>Contact</h2>
+          <p>Get in touch or share your own reimagined creations with me.</p>
+          <p>email   twitter   instagram   flickr  a to vsetko ostatne</p>   
+        </section>
+
+<section id="stories">
+  <h2>From Trash to Treasure - few websites for inspiration</h2>
+
+<div id="websites-container" class="inspiration-grid"></div>
+  
+</section>
+
+        
+        <section id="diy"style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">
+          <h2>DIY Zone</h2>
+          <p>Tutorials or guides for people to try recycling projects themselves.</p>
+        </section>
+        <section id="tips" style="background-color: #FFD7B3; padding: 10px; border-radius: 10px;">
+         
+<h2>Recyklačné Tipy - Premeň Odpad na Poklad</h2>
+
+<h2>1. Zlaté Pravidlo Kreatívneho Recyklovania</h2>
+<p>Predtým ako niečo vyhodíš, spýtaj sa seba: "Ako sa z toho môže stať umenie?" Každý kus odpadu má potenciál. Z plastových fliaš sa môžu stať kvetináče, staré CD sa premenia na mozaikové majstrovské diela a kartónové krabice sa zmenia na architektonické sochy. Natrénuj svoje oko vidieť krásu v zahodenom.</p>
+
+<h2>2. Začni Svoju Zbierku Pokladov</h2>
+<p>Vytvor si určené zbierkacie krabice pre rôzne materiály: jednu pre plastové nádoby, druhú pre plechovky, zvyšky látok, papier a sklenené predmety. Trieď podľa farby, veľkosti a textúry. Čím organizovanejší máš svoj "odpadkový poklad," tým ľahšie si dokážeš predstaviť svoje ďalšie majstrovské dielo. Pamätaj si, najlepší umelci sú tiež skvelí zberateľia.</p>
+
+<h2>3. Zvládni Umenie Čistenia a Prípravy</h2>
+<p>Premeň špinavý odpad na čisté plátno. Odstráň všetky etikety, zvyšky lepidla a dôkladne vyčisti každý predmet. Obrúsne hrubé hrany na kovových kusoch a uisti sa, že je všetko úplne suché pred uskladnením. Dobre pripravený materiál je na polceste k tomu, aby sa stal krásnym umením.</p>
+
+<h2>4. Základné Nástroje pre Premenu Odpadu na Umenie</h2>
+<p>Investuj do základných nástrojov, ktoré otvoria kreatívne možnosti: tepelná lepiarica, silné lepidlá, štetce, brúsny papier, kliešte na drôt a sprejová farba. Tieto jednoduché nástroje ti pomôžu rezať, spájať, farbiť a úplne premeniť akýkoľvek zahodený materiál na niečo výnimočné.</p>
+
+<h2>5. Teória Farieb Stretáva Recyklačnú Mágia</h2>
+<p>Používaj farbu strategicky na zjednotenie rôznych materiálov do súdržných umeleckých diel. Sprejová farba dokáže spraviť z plastu, kovu a dreva materiály, ktoré k sebe patria. Kovové povrchové úpravy dodávajú eleganciu obyčajným predmetom, zatiaľ čo jasné farby môžu premeniť odpad na hravé sochy, ktoré prinášajú radosť do každého priestoru.</p>
+
+<h2>6. Spoj Funkčnosť s Krásou</h2>
+<p>Vytváraj umenie, ktoré slúži určitému účelu. Premeň staré pneumatiky na farebné záhradné kvetináče, transformuj vínne fľaše na elegantné svietidlá alebo prekonvertuj kartón na funkčné úložné priestory, ktoré vyzerajú ako dizajnérsky nábytok. Funkčné umenie dokazuje, že recyklovanie môže byť zároveň krásne aj praktické.</p>
+
+<h2>7. Malé Projekty Vedú k Veľkým Premenám</h2>
+<p>Začni s jednoduchými projektmi ako sú mozaiky zo zátok alebo sochy z novín predtým, ako sa pustíš do veľkých inštalácií. Najprv si osvojte základné techniky. Každý malý úspech buduje sebadôveru a zručnosti potrebné pre ambicióznejšie recyklačné umelecké projekty. Každý umelec začal so svojím prvým premeneným kusom odpadu.</p>
+
+<h2>8. Zdieľaj Svoju Recyklačnú Umeleckú Cestu</h2>
+<p>Dokumentuj svoje premeny pred a po. Rob fotografie pôvodného odpadu a finálneho umeleckého diela. Zdieľaj svoj proces a inšpiruj ostatných, aby videli odpad inak. Tvoje recyklačné umelecké projekty môžu motivovať celé komunity, aby prehodnotili to, čo vyhadzujú, a objavili svoj vlastný kreatívny potenciál.</p>
+
+          <br><br>
+          <p>english version</p>
+          <h2>Recycling Tips - Transform Trash to Treasure</h2>
+
+<h2>1. The Golden Rule of Creative Recycling</h2>
+<p>Before throwing anything away, ask yourself: "How can this become art?" Every piece of trash has potential. Plastic bottles can become planters, old CDs transform into mosaic masterpieces, and cardboard boxes evolve into architectural sculptures. Train your eye to see beauty in the discarded.</p>
+
+<h2>2. Start Your Treasure Hunt Collection</h2>
+<p>Create designated collection boxes for different materials: one for plastic containers, another for metal cans, fabric scraps, paper, and glass items. Sort by color, size, and texture. The more organized your "trash treasure," the easier it becomes to envision your next masterpiece. Remember, the best artists are also great collectors.</p>
+
+<h2>3. Master the Art of Cleaning and Preparation</h2>
+<p>Transform dirty waste into clean canvas. Remove all labels, adhesive residue, and thoroughly clean each item. Sand rough edges on metal pieces, and ensure everything is completely dry before storage. A well-prepared material is halfway to becoming beautiful art.</p>
+
+<h2>4. Essential Tools for Trash-to-Art Transformation</h2>
+<p>Invest in basic tools that unlock creative possibilities: hot glue gun, strong adhesives, paint brushes, sandpaper, wire cutters, and spray paint. These simple tools can help you cut, connect, color, and completely transform any discarded material into something extraordinary.</p>
+
+<h2>5. Color Theory Meets Recycling Magic</h2>
+<p>Use paint strategically to unify different materials into cohesive art pieces. Spray paint can make plastic, metal, and wood look like they belong together. Metallic finishes add elegance to ordinary objects, while bright colors can turn trash into playful sculptures that bring joy to any space.</p>
+
+<h2>6. Think Function Meets Beauty</h2>
+<p>Create art that serves a purpose. Turn old tires into colorful garden planters, transform wine bottles into elegant lighting fixtures, or convert cardboard into functional storage that looks like designer furniture. Functional art proves that recycling can be both beautiful and practical.</p>
+
+<h2>7. Small Projects Lead to Big Transformations</h2>
+<p>Start with simple projects like bottle cap mosaics or newspaper sculptures before attempting large installations. Master basic techniques first. Each small success builds confidence and skills needed for more ambitious recycling art projects. Every artist started with their first transformed piece of trash.</p>
+
+<h2>8. Share Your Recycling Art Journey</h2>
+<p>Document your before-and-after transformations. Take photos of the original trash and the final artwork. Share your process and inspire others to see waste differently. Your recycling art projects can motivate entire communities to rethink what they throw away and discover their own creative potential.</p>
+
+          
+        </section>
+        
+           
+        
+        </section>
+        
+      </main>
+    </div>
+    
+  </div>
+
+  <nav>
+  <button><a href="development.html" style="text-decoration: none;">page development</a></button>
+  </nav>
+  
+  <footer>
+    &copy; 2025 recycledsolitair.com
+  </footer>
+
+  <script src="/static/supabase.js"></script>
+  <script src="/static/script.js"></script>
+  <script src="/static/website.js"></script>
+  <script src="/static/recepty.js"></script>
+  <script src="/static/recepty-script.js"></script>
+    
+    
+  
+
+<script>
+function showSection(id) {
+  const sections = document.querySelectorAll('main section');
+  const navButtons = document.querySelectorAll('nav button');
+  
+  // Remove active class from all buttons
+  navButtons.forEach(button => button.classList.remove('active'));
+  
+  // Hide all sections
+  sections.forEach(section => section.classList.remove('visible'));
+  
+  // Show target section
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('visible');
+    
+    // Scroll with offset for sticky nav
+    setTimeout(() => {
+      const navHeight = document.querySelector('nav').offsetHeight;
+      const targetPosition = target.offsetTop - navHeight - 10; // 10px extra padding
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }
+  
+  // Add active class to clicked button
+const activeButton = Array.from(navButtons).find(button =>
+  button.dataset.section === id
+);
+  if (activeButton) {
+    activeButton.classList.add('active');
+  }
+}
+</script>
+
+  
 </body>
 </html>

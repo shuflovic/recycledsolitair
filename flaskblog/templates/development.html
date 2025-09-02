@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="sk-en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>From Trash to Treasure</title>
+  <link rel="stylesheet" href="/static/main.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chicle&family=Darumadrop+One&display=swap" rel="stylesheet">
+</head>
+
+    <aside class="sidebar">
+      <p>this section will be visible only during page development</p>
+      <section class="todo">
+        <div class="input-section">
+          <input type="text" id="TDL" placeholder="Add a new task... and ENTER" />
+          <button id="submitTodo">add task</button><br>
+        </div>
+        <div class="todo-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th><th></th><th>Notes</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="guestDataTableBody1"></tbody>
+          </table>
+        </div>
+      </section><br><hr><br>
+      <section class="comment">
+        <div class="input-section">
+          <input type="text" id="comments" placeholder="Add a new comment... and ENTER" />
+          <button id="submitComment">pridaj koment</button><br>
+        </div>
+        <div class="comment-table">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Comment</th></tr>
+            </thead>
+            <tbody id="commentDataTableBody1"></tbody>
+          </table>
+        </div>
+      </section>
+  <br><hr><br>
+
+
+<div class="add-article-form">
+  <h3>Add New Article</h3>
+  <input type="text" id="new-article-title" placeholder="Article Title">
+  <textarea id="new-article-content" placeholder="Article preview content (2–3 lines)"></textarea>
+  <textarea id="new-article-full" placeholder="Full article content (HTML allowed)"></textarea>
+  <input type="file" id="article-image" accept="image/*">
+  <button onclick="addNewArticle()">Add Article</button>
+  <div id="articles-container" style="display: none"></div>
+</div>
+<br><br>
+
+<div class="add-website">
+  <h3>Add New Website</h3>
+  <input type="text" id="new-website-title" placeholder="just paste here html address">
+  <button onclick="addNewWebsite()">Add Website</button>
+  <div id="website-container" style="display: none"></div>
+</div><br><br>
+
+<section id="add-recept" class="add-recept-form" class="visible">
+    <form id="add-recept-form" onsubmit="addNewRecept(); return false;">
+      <h3>Pridaj nový recept</h3>
+      <input type="text" id="new-recept-title" placeholder="názov receptu" required>
+      <textarea id="new-recept-content" placeholder="recept iba popis" required></textarea>
+      <textarea id="new-recept-full" placeholder="Full recept content (HTML allowed)"></textarea>
+      <input type="file" id="recept-image" accept="image/*">
+      <button type="submit">Pridaj Recept</button>
+    </form>
+  </section>
+
+<br><br>
+
+</aside>
+
+  <footer>
+    &copy; 2025 recycledsolitair.com
+  </footer>
+
+  <script src="to-do.js"></script>
+  <script src="supabase.js"></script>
+  <script src="comment.js"></script>
+  <script src="script.js"></script>
+  <script src="website.js"></script>
+  <script src="recepty.js"></script>
+  <script src="recepty-script.js"></script>
+
+
+</body>
+</html>

@@ -22,6 +22,11 @@ def home():
 def about():
     return render_template('about.html', title='About')
 
+@app.route("/development")
+@login_required
+def development():
+    return render_template('development.html', title='development')
+
 @app.route("/projects")
 def projects():
     return render_template('projects.html', title='projects')
